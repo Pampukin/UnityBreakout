@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2673554218626598265}
   - component: {fileID: 7611489002992098307}
   - component: {fileID: 7467196534148726563}
+  - component: {fileID: 81678298634461429}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.3962264, g: 0.38688144, b: 0.38688144, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,7 +96,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 2088036752047000930}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cb298977c7a9fb2488f8f2efa723b023, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -137,7 +138,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cb298977c7a9fb2488f8f2efa723b023, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -146,5 +147,20 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &81678298634461429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088036752047000930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bdf980ecd5d3ea429424f5ca93ae365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveVector: {x: 0, y: 0, z: 0}
+  _moveSpeed: 5
+  _crash: {fileID: 601043134581648363, guid: f5b1f5b2edbb83d4aa64eaee857ae120, type: 3}
