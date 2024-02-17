@@ -33,7 +33,7 @@ public class BallMover : MonoBehaviour, IHit
     }
 
     /// <summary>
-    /// 反射の速度処理
+    /// 物体ごとの反射処理
     /// 別の書き方できそう
     /// </summary>
     public void Hit()
@@ -55,7 +55,7 @@ public class BallMover : MonoBehaviour, IHit
     }
 
     /// <summary>
-    /// 反射
+    /// 反射イベント
     /// </summary>
     /// <param name="col"></param>
     private void _Reflect(Collision2D col)
