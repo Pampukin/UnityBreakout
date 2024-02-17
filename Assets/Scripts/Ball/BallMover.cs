@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallMover : MonoBehaviour, IHit
 {
     private Rigidbody2D _rb;
-
-    [SerializeField]
+    
     private Vector3 _moveVector;
 
     [SerializeField]
@@ -29,7 +25,6 @@ public class BallMover : MonoBehaviour, IHit
     {
         _rb = this.GetComponent<Rigidbody2D>();
         _moveVector = Vector3.up;
-        _rb.velocity = _moveSpeed * _moveVector.normalized;
     }
     
     private void FixedUpdate()
@@ -39,42 +34,82 @@ public class BallMover : MonoBehaviour, IHit
 
     /// <summary>
     /// 反射の速度処理
+    /// 別の書き方できそう
     /// </summary>
     public void Hit()
     {
-        if (!_col.gameObject.CompareTag("Ball"))
+        switch (_col.gameObject.tag)
         {
-            if (Vector2.Dot(_hitPos.normalized, _moveVector) < 0)
-            {
-                Vector3 preMoveVector = _moveVector;
-                _moveVector = Vector2.Reflect(preMoveVector, _hitPos);
-            }
+            case "Ball":
+                _moveVector = _hitPos;
+                break;
+            
+            default:
+                if (Vector2.Dot(_hitPos.normalized, _moveVector) < 0)
+                {
+                    Vector3 preMoveVector = _moveVector;
+                    _moveVector = Vector2.Reflect(preMoveVector, _hitPos);
+                }
+                break;
         }
-        else
-        {
-            _moveVector = _hitPos;
-        }
-        
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    /// <summary>
+    /// 反射
+    /// </summary>
+    /// <param name="col"></param>
+    private void _Reflect(Collision2D col)
     {
         _col = col;
         _hitPos = col.contacts[0].normal;
         Hit();
+    }
+
+    /// <summary>
+    /// 接触点の生成
+    /// </summary>
+    /// <param name="col"></param>
+    private void _SetCrash(Collision2D col)
+    {
         var crash = Instantiate(_crash, col.contacts[0].point, Quaternion.identity, this.transform);
         _crashObjects.Add(crash.gameObject);
         crash.MyObject = this.gameObject;
         crash.OtherObject = col.gameObject;
     }
 
+    /// <summary>
+    /// 接触点の更新
+    /// </summary>
+    /// <param name="col"></param>
+    private void _RenewCrash(Collision2D col)
+    {
+        _crashObjects[^1].transform.position = col.contacts[0].point;
+    }
+
+    /// <summary>
+    /// 接触点の削除
+    /// </summary>
+    private void _ResetCrash()
+    {
+        foreach (var crashObject in _crashObjects)
+        {
+            Destroy(crashObject);
+        }
+        _crashObjects.Clear();
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        _SetCrash(col);
+    }
+
     private void OnCollisionStay2D(Collision2D col)
     {
         if (_crashObjects.Count != 0)
         {
-            _crashObjects[^1].transform.position = col.contacts[0].point;
-            _hitPos = col.contacts[0].normal;
-            Hit();
+            _RenewCrash(col);
+            
+            _Reflect(col);
         }
     }
 
@@ -82,11 +117,7 @@ public class BallMover : MonoBehaviour, IHit
     {
         if (_crashObjects.Count != 0)
         {
-            foreach (var crashObject in _crashObjects)
-            {
-                Destroy(crashObject);
-            }
-            _crashObjects.Clear();
+            _ResetCrash();
         }
     }
 }
