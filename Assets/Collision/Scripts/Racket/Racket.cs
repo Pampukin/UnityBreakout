@@ -23,9 +23,22 @@ public class Racket : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private Ball _ball;
+
+    private Vector3 _offset = new Vector3(0,0.28f,0);
+    
     private void Awake()
     {
         _scale = this.transform.localScale;
+    }
+
+    private void Update()
+    {
+        if (StageManager.INSTANCE.StageState == StageState.Pre)
+        {
+            _ball.transform.position = this.transform.position + _offset;
+        }
     }
 
     public void SetScale(Vector3 scale)

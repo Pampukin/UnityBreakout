@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,16 +43,19 @@ public class BallMover : MonoBehaviour
     private void Awake()
     {
         _rb = this.GetComponent<Rigidbody2D>();
-        _OnlyDebug();
     }
 
-    private void _OnlyDebug()
+    private void Start()
     {
-        _reflectVector = Vector3.up;
+        StageManager.INSTANCE.StartAction = () => _reflectVector = Vector3.up;
     }
     
     private void FixedUpdate()
     {
+        if (_rb.bodyType == RigidbodyType2D.Static)
+        {
+            return;
+        }
         _rb.velocity = _moveVelocity;
     }
 
