@@ -28,9 +28,6 @@ public class BallMoverTrigger : MonoBehaviour
 
     private Vector3 _hitPos;
 
-
-    private bool _hasHit = true;
-
     [SerializeField]
     private Crash _crash;
 
