@@ -1,20 +1,35 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BallMover : MonoBehaviour, IHit
 {
     private Rigidbody2D _rb;
-    
-    private Vector3 _moveVector;
 
+    /// <summary>
+    /// ボールの速さ
+    /// </summary>
+    private Vector3 _moveVelocity
+    {
+        get
+        {
+            return _moveSpeed * _reflectVector.normalized;
+        }
+    }
+    
+    /// <summary>
+    /// 速度
+    /// </summary>
     [SerializeField]
     private float _moveSpeed = 5;
-
-    private Vector3 _hitPos;
-
+    
+    /// <summary>
+    /// 反射する方向
+    /// </summary>
     private Vector3 _reflectVector;
-
+    
+    private Vector3 _hitPos;
+    
+    
     private bool _hasHit = true;
 
     [SerializeField]
@@ -27,12 +42,17 @@ public class BallMover : MonoBehaviour, IHit
     private void Awake()
     {
         _rb = this.GetComponent<Rigidbody2D>();
-        _moveVector = Vector3.up;
+        _OnlyDebug();
+    }
+
+    private void _OnlyDebug()
+    {
+        _reflectVector = Vector3.up;
     }
     
     private void FixedUpdate()
     {
-        _rb.velocity = _moveSpeed * _moveVector.normalized;
+        _rb.velocity = _moveVelocity;
     }
 
     /// <summary>
@@ -44,39 +64,25 @@ public class BallMover : MonoBehaviour, IHit
         switch (_col.gameObject.tag)
         {
             case "Ball":
-                _moveVector = _reflectVector;
+                _reflectVector =  this.transform.position - _hitPos;
                 break;
             
             case "Racket":
                 var racket = _col.gameObject.GetComponent<Racket>();
                 if (racket == null) return;
 
-                _moveVector = new Vector3(_hitPos.x - racket.transform.position.x, racket.transform.position.y + racket.Height / 2 - racket.transform.position.y,0);
-                // var reflectDirection = (Vector3)_col.contacts[0].point - _col.gameObject.transform.position;
-                // _moveVector = Vector2.Reflect(_moveVector, reflectDirection.normalized);
-                //
+                _reflectVector = new Vector3(_hitPos.x - racket.transform.position.x, racket.Height / 2 ,0);
                 break;
             
             default:
-                if (Vector2.Dot(_reflectVector.normalized, _moveVector) < 0)
+                if (Vector2.Dot(_col.contacts[0].normal.normalized, _moveVelocity) < 0)
                 {
-                    _moveVector = Vector2.Reflect(_moveVector, _reflectVector);
+                    _reflectVector = Vector2.Reflect(_moveVelocity, _col.contacts[0].normal.normalized);
                 }
                 break;
         }
     }
-
-    /// <summary>
-    /// 反射イベント
-    /// </summary>
-    /// <param name="col"></param>
-    private void _Reflect(Collision2D col)
-    {
-        _col = col;
-        _reflectVector = col.contacts[0].normal;
-        Hit();
-    }
-
+    
     /// <summary>
     /// 接触点の生成
     /// </summary>
@@ -112,27 +118,32 @@ public class BallMover : MonoBehaviour, IHit
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        _col = col;
         _hitPos = col.contacts[0].point;
+        
         _SetCrash(col);
     }
 
     private void OnCollisionStay2D(Collision2D col)
     {
+        _col = col;
         _hitPos = col.contacts[0].point;
+        
         if (_crashObjects.Count != 0)
         {
             _RenewCrash(col);
-            
-            _Reflect(col);
+
+            Hit();
         }
     }
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        _hitPos = Vector3.zero;
+        _col = col;
         if (_crashObjects.Count != 0)
         {
             _ResetCrash();
         }
+        _hitPos = Vector3.zero;
     }
 }
