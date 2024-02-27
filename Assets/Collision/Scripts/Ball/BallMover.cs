@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallMover : MonoBehaviour, IHit
+public class BallMover : MonoBehaviour
 {
     private Rigidbody2D _rb;
 
@@ -81,6 +81,12 @@ public class BallMover : MonoBehaviour, IHit
                 }
                 break;
         }
+
+        var hit = _col.gameObject.GetComponent<IHit>();
+        if (hit != null)
+        {
+            hit.Hit();
+        }
     }
     
     private void _SetReflectVector(float x, float y, float z)
@@ -127,20 +133,19 @@ public class BallMover : MonoBehaviour, IHit
     {
         _col = col;
         _hitPos = col.contacts[0].point;
-        
         _SetCrash(col);
+        Hit();
     }
 
     private void OnCollisionStay2D(Collision2D col)
     {
         _col = col;
         _hitPos = col.contacts[0].point;
+        Hit();
         
         if (_crashObjects.Count != 0)
         {
             _RenewCrash(col);
-
-            Hit();
         }
     }
 

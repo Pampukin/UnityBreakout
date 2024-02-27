@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallMoverTrigger : MonoBehaviour, IHit
+public class BallMoverTrigger : MonoBehaviour
 {
     private Rigidbody2D _rb;
 
@@ -55,11 +55,6 @@ public class BallMoverTrigger : MonoBehaviour, IHit
         _reflectVector = Vector3.up;
     }
     
-    private void FixedUpdate()
-    {
-        _rb.velocity = _moveVelocity;
-    }
-
     /// <summary>
     /// 物体ごとの反射処理
     /// 別の書き方できそう
@@ -92,6 +87,7 @@ public class BallMoverTrigger : MonoBehaviour, IHit
                 }
                 break;
         }
+        _rb.velocity = _moveVelocity;
     }
 
     private void _SetReflectVector(float x, float y, float z)
