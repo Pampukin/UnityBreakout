@@ -448,7 +448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &330324604
 Transform:
   m_ObjectHideFlags: 0
@@ -3126,14 +3126,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
-    - target: {fileID: 2673554218626598265, guid: d10cb39b0b9fdc3428e066ca19f25cca, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2673554218626598265, guid: d10cb39b0b9fdc3428e066ca19f25cca, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3989153379174578412, guid: d10cb39b0b9fdc3428e066ca19f25cca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3172,10 +3164,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3989153379174578412, guid: d10cb39b0b9fdc3428e066ca19f25cca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7611489002992098307, guid: d10cb39b0b9fdc3428e066ca19f25cca, type: 3}
-      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
