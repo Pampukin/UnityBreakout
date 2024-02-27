@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class BallMover : MonoBehaviour, IHit
     private float _moveSpeed = 5;
 
     private Vector3 _hitPos;
+
+    private Vector3 _reflectVector;
 
     private bool _hasHit = true;
 
@@ -41,14 +44,23 @@ public class BallMover : MonoBehaviour, IHit
         switch (_col.gameObject.tag)
         {
             case "Ball":
-                _moveVector = _hitPos;
+                _moveVector = _reflectVector;
+                break;
+            
+            case "Racket":
+                var racket = _col.gameObject.GetComponent<Racket>();
+                if (racket == null) return;
+
+                _moveVector = new Vector3(_hitPos.x - racket.transform.position.x, racket.transform.position.y + racket.Height / 2 - racket.transform.position.y,0);
+                // var reflectDirection = (Vector3)_col.contacts[0].point - _col.gameObject.transform.position;
+                // _moveVector = Vector2.Reflect(_moveVector, reflectDirection.normalized);
+                //
                 break;
             
             default:
-                if (Vector2.Dot(_hitPos.normalized, _moveVector) < 0)
+                if (Vector2.Dot(_reflectVector.normalized, _moveVector) < 0)
                 {
-                    Vector3 preMoveVector = _moveVector;
-                    _moveVector = Vector2.Reflect(preMoveVector, _hitPos);
+                    _moveVector = Vector2.Reflect(_moveVector, _reflectVector);
                 }
                 break;
         }
@@ -61,7 +73,7 @@ public class BallMover : MonoBehaviour, IHit
     private void _Reflect(Collision2D col)
     {
         _col = col;
-        _hitPos = col.contacts[0].normal;
+        _reflectVector = col.contacts[0].normal;
         Hit();
     }
 
@@ -100,11 +112,13 @@ public class BallMover : MonoBehaviour, IHit
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        _hitPos = col.contacts[0].point;
         _SetCrash(col);
     }
 
     private void OnCollisionStay2D(Collision2D col)
     {
+        _hitPos = col.contacts[0].point;
         if (_crashObjects.Count != 0)
         {
             _RenewCrash(col);
@@ -115,6 +129,7 @@ public class BallMover : MonoBehaviour, IHit
 
     private void OnCollisionExit2D(Collision2D col)
     {
+        _hitPos = Vector3.zero;
         if (_crashObjects.Count != 0)
         {
             _ResetCrash();
