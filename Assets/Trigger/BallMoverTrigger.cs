@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,9 +27,6 @@ public class BallMoverTrigger : MonoBehaviour
     private Vector3 _reflectVector;
 
     private Vector3 _hitPos;
-
-
-    private bool _hasHit = true;
 
     [SerializeField]
     private Crash _crash;

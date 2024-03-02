@@ -26,6 +26,11 @@ public class RacketMover : MonoBehaviour
     /// </summary>
     private void _GetSpeed()
     {
+        if (_rb.bodyType == RigidbodyType2D.Static)
+        {
+            return;
+        }
+        
         _moveVector.x = Input.GetAxisRaw("Horizontal");
         _rb.velocity = _moveSpeed * _moveVector;
     }

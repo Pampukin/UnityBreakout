@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,9 +29,6 @@ public class BallMover : MonoBehaviour
     private Vector3 _reflectVector;
     
     private Vector3 _hitPos;
-    
-    
-    private bool _hasHit = true;
 
     [SerializeField]
     private Crash _crash;
@@ -42,16 +40,19 @@ public class BallMover : MonoBehaviour
     private void Awake()
     {
         _rb = this.GetComponent<Rigidbody2D>();
-        _OnlyDebug();
     }
 
-    private void _OnlyDebug()
+    private void Start()
     {
-        _reflectVector = Vector3.up;
+        StageManager.INSTANCE.StartAction = () => _reflectVector = Vector3.up;
     }
     
     private void FixedUpdate()
     {
+        if (_rb.bodyType == RigidbodyType2D.Static)
+        {
+            return;
+        }
         _rb.velocity = _moveVelocity;
     }
 
@@ -72,6 +73,11 @@ public class BallMover : MonoBehaviour
                 if (racket == null) return;
 
                 _SetReflectVector(_hitPos.x - racket.transform.position.x, racket.Height / 2, 0);
+                break;
+            
+            case "Bottom":
+                LivesManager.INSTANCE?.DecreaseLife();
+                Destroy(this.gameObject);
                 break;
             
             default:
