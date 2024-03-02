@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc095605f9b98e248bbe2243cd868fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lifeNum: 1
 --- !u!1001 &128949172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1735,6 +1736,7 @@ GameObject:
   - component: {fileID: 1014485359}
   - component: {fileID: 1014485360}
   - component: {fileID: 1014485361}
+  - component: {fileID: 1014485362}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -1807,6 +1809,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flashingCanvas: {fileID: 6667240812101253068, guid: 0388516db961699459bfdefe1e884a6b, type: 3}
+--- !u!114 &1014485362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014485356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 568644889d5f89c42a0656515cd5e4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashingCanvas: {fileID: 2593847804296019075, guid: f0b36853838478343aa12b2ba8851004, type: 3}
 --- !u!1001 &1182503295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2056,7 +2071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49ba23c345d954db49fc21ac05e527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifeNum: 3
   _life: {fileID: 2176515105481228167, guid: e8143a4614d947b4db8bd8aee84b4b5c, type: 3}
   _lives: []
 --- !u!114 &1251075295

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class LivesManager : MonoBehaviour
 {
+    [SerializeField]
+    private int _lifeNum = 3;
+    
     private static LivesManager _instance;
 
     public static LivesManager INSTANCE => _instance;
@@ -17,6 +20,11 @@ public class LivesManager : MonoBehaviour
         }
 
         _lives = GetComponentInChildren<Lives>();
+    }
+
+    private void Start()
+    {
+        _lives.LifeNum = _lifeNum;
     }
 
     public void DecreaseLife()

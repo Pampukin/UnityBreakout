@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class Lives : MonoBehaviour
 {
-    [SerializeField]
+    public int LifeNum
+    {
+        set
+        {
+            _lifeNum = value;
+        }
+    }
+    
     private int _lifeNum = 3;
     
     [SerializeField]
