@@ -1,8 +1,7 @@
-using System;
 using TMPro;
 using UnityEngine;
 
-public class PauseText : MonoBehaviour
+public abstract class FlashingText : MonoBehaviour
 {
     private TextMeshProUGUI _text;
 

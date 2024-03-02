@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 873f15e9130dd23489c1f1a5f0333ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pauseText: {fileID: 8973955288820327278}
+  _flashingText: {fileID: 8973955288820327278}
   _startColor:
     serializedVersion: 2
     rgba: 4294967295

@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
-public class PauseCanvas : MonoBehaviour
+public abstract class FlashingCanvas : MonoBehaviour
 {
     [SerializeField]
-    private PauseText _pauseText;
+    private FlashingText _flashingText;
     
     //開始時の色。
     [SerializeField]
@@ -15,7 +14,7 @@ public class PauseCanvas : MonoBehaviour
     private Color32 _endColor = new Color32(255, 255, 255, 16);
 
     [SerializeField]
-    private float _duration = 1.5f;
+    private float _duration = 0.75f;
 
     private float _startTime;
 
@@ -26,13 +25,11 @@ public class PauseCanvas : MonoBehaviour
 
     private void _flashing()
     {
-        _pauseText.Text.color = Color.Lerp(_startColor,_endColor,Mathf.PingPong((Time.realtimeSinceStartup - _startTime) / _duration, 1.0f));
+        _flashingText.Text.color = Color.Lerp(_startColor,_endColor,Mathf.PingPong((Time.realtimeSinceStartup - _startTime) / _duration, 1.0f));
     }
     
     private void Update()
     {
         _flashing();
     }
-
-
 }

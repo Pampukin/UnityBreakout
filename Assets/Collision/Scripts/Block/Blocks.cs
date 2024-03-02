@@ -30,12 +30,14 @@ public class Blocks : MonoBehaviour
     {
         _blocks.Remove(block);
 
-        _isClear();
+        if (_isClear())
+        {
+            StateManager.INSTANCE?.AllBlocksDestroyed();
+        }
     }
 
     private bool _isClear()
     {
-        Debug.Log("Clear");
         return _blocks.Count == 0;
     }
     

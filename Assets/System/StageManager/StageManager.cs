@@ -153,7 +153,7 @@ public class StageManager : MonoBehaviour
     private void _Pause()
     {
         Debug.Log("Pause");
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         _pauseAction?.Invoke();
         _isStateChanged = false;
     }
@@ -161,7 +161,7 @@ public class StageManager : MonoBehaviour
     private void _Resume()
     {
         Debug.Log("Resume");
-        Time.timeScale = 1;
+        // Time.timeScale = 1;
         _resumeAction?.Invoke();
         SetStageState(_preState);
         Debug.Log(_stageState);

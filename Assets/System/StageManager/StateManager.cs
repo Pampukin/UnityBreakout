@@ -1,9 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
+    public static StateManager INSTANCE => _instance;
+    private static StateManager _instance;
+
+    private bool _canPause => StageManager.INSTANCE.StageState != StageState.Clear;
+    
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+    }
+
     void Start()
     {
         StageManager.INSTANCE.SetStageState(StageState.Pre);
@@ -23,9 +37,19 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    private void _Clear()
+    {
+        StageManager.INSTANCE.SetStageState(StageState.Clear);
+    }
+
+    public void AllBlocksDestroyed()
+    {
+        _Clear();
+    }
+
     private void _Pause()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && _canPause)
         {
             if (StageManager.INSTANCE.StageState != StageState.Pause)
             {
