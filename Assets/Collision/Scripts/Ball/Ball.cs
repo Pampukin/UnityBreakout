@@ -14,6 +14,6 @@ public class Ball : MonoBehaviour
     {
         StageManager.INSTANCE.PreAction = () => _rb.bodyType = RigidbodyType2D.Static;
         StageManager.INSTANCE.StartAction = () => _rb.bodyType = RigidbodyType2D.Dynamic;
-        StageManager.INSTANCE.EndAction = () => _rb.bodyType = RigidbodyType2D.Static;
+        StageManager.INSTANCE.ClearAction = () => _rb.bodyType = RigidbodyType2D.Static;
     }
 }

@@ -17,7 +17,7 @@ public class StageManager : MonoBehaviour
 
     private StageState _stageState = StageState.None;
 
-    private void _SetStageState(StageState state)
+    public void SetStageState(StageState state)
     {
         _isStateChanged = true;
         _stageState = state;
@@ -51,14 +51,14 @@ public class StageManager : MonoBehaviour
     }
     private UnityAction _playingAction;
 
-    public UnityAction EndAction
+    public UnityAction ClearAction
     {
         set
         {
-            _endAction += value;
+            _clearAction += value;
         }
     }
-    private UnityAction _endAction;
+    private UnityAction _clearAction;
     
     public UnityAction PauseAction
     {
@@ -84,31 +84,10 @@ public class StageManager : MonoBehaviour
         {
             _instance = this;
         }
-
-        _SetStageState(StageState.Pre);
     }
 
     private void Update()
     {
-        //操作系統は後々移動
-        if (_stageState == StageState.Pre && Input.GetKeyDown(KeyCode.Space))
-        {
-            _SetStageState(StageState.Start);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (_stageState != StageState.Pause)
-            {
-                _SetStageState(StageState.Pause);
-            }
-            else
-            {
-                _SetStageState(StageState.Resume);
-            }
-            
-        }
-        
         if (_isStateChanged)
         {
             switch (_stageState)
@@ -122,8 +101,8 @@ public class StageManager : MonoBehaviour
                 case StageState.Playing:
                     _Playing();
                     break;
-                case StageState.End:
-                    _End();
+                case StageState.Clear:
+                    _Clear();
                     break;
                 case StageState.Pause:
                     _Pause();
@@ -151,7 +130,7 @@ public class StageManager : MonoBehaviour
         Debug.Log("Start");
         _startAction?.Invoke();
         _preState = StageState.Start;
-        _SetStageState(StageState.Playing);
+        SetStageState(StageState.Playing);
         _isStateChanged = false;
     }
 
@@ -163,11 +142,11 @@ public class StageManager : MonoBehaviour
         _isStateChanged = false;
     }
 
-    private void _End()
+    private void _Clear()
     {
-        Debug.Log("End");
-        _endAction?.Invoke();
-        _preState = StageState.End;
+        Debug.Log("Clear");
+        _clearAction?.Invoke();
+        _preState = StageState.Clear;
         _isStateChanged = false;
     }
 
@@ -184,7 +163,7 @@ public class StageManager : MonoBehaviour
         Debug.Log("Resume");
         Time.timeScale = 1;
         _resumeAction?.Invoke();
-        _SetStageState(_preState);
+        SetStageState(_preState);
         Debug.Log(_stageState);
         _isStateChanged = false;
     }

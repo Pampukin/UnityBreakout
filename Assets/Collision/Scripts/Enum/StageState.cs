@@ -4,7 +4,7 @@ public enum StageState
     Pre,
     Start,
     Playing,
-    End,
+    Clear,
     Pause,
     Resume,
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PauseSystem : MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
     [SerializeField]
     private PauseCanvas _pauseCanvas;
