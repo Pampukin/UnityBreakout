@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Ball : MonoBehaviour
 {
@@ -12,10 +13,32 @@ public class Ball : MonoBehaviour
 
     private void Start()
     {
-        StageManager.INSTANCE.PreAction = () => _rb.bodyType = RigidbodyType2D.Static;
-        StageManager.INSTANCE.StartAction = () => _rb.bodyType = RigidbodyType2D.Dynamic;
-        StageManager.INSTANCE.ClearAction = () => _rb.bodyType = RigidbodyType2D.Static;
-        StageManager.INSTANCE.PauseAction = () => _rb.bodyType = RigidbodyType2D.Static;
-        StageManager.INSTANCE.ResumeAction = () => _rb.bodyType = RigidbodyType2D.Dynamic;
+        StageManager.INSTANCE.PreAction += DisableRigidbody;
+        StageManager.INSTANCE.StartAction +=  AbleRigidbody;
+        StageManager.INSTANCE.ClearAction +=  DisableRigidbody;
+        StageManager.INSTANCE.PauseAction +=  DisableRigidbody;
+        StageManager.INSTANCE.ResumeAction +=  AbleRigidbody;
     }
+    
+    private void OnDestroy()
+    {
+        StageManager.INSTANCE.PreAction -= DisableRigidbody;
+        StageManager.INSTANCE.StartAction -=  AbleRigidbody;
+        StageManager.INSTANCE.ClearAction -= DisableRigidbody;
+        StageManager.INSTANCE.PauseAction -=  DisableRigidbody;
+        StageManager.INSTANCE.ResumeAction -=  AbleRigidbody;
+    }
+    
+    private void AbleRigidbody()
+    {
+        _rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+    
+    private void DisableRigidbody()
+    {
+        _rb.bodyType = RigidbodyType2D.Static;
+    }
+
+
+
 }

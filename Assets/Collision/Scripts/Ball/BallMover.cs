@@ -44,7 +44,7 @@ public class BallMover : MonoBehaviour
 
     private void Start()
     {
-        StageManager.INSTANCE.StartAction = () => _reflectVector = Vector3.up;
+        StageManager.INSTANCE.StartAction += () => _reflectVector = Vector3.up;
     }
     
     private void FixedUpdate()

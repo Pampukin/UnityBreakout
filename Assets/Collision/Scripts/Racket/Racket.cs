@@ -38,9 +38,9 @@ public class Racket : MonoBehaviour
     
     private void Start()
     {
-        StageManager.INSTANCE.ClearAction = () => _rb.bodyType = RigidbodyType2D.Static;
-        StageManager.INSTANCE.PauseAction = () => _rb.bodyType = RigidbodyType2D.Static;
-        StageManager.INSTANCE.ResumeAction = () => _rb.bodyType = RigidbodyType2D.Dynamic;
+        StageManager.INSTANCE.ClearAction += () => _rb.bodyType = RigidbodyType2D.Static;
+        StageManager.INSTANCE.PauseAction += () => _rb.bodyType = RigidbodyType2D.Static;
+        StageManager.INSTANCE.ResumeAction += () => _rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void Update()

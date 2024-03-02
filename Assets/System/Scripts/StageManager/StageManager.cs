@@ -21,12 +21,16 @@ public class StageManager : MonoBehaviour
         _isStateChanged = true;
         _stageState = state;
     }
-    
+
     public UnityAction PreAction
     {
         set
         {
-            _preAction += value;
+            _preAction = value;
+        }
+        get
+        {
+            return _preAction;
         }
     }
     
@@ -36,7 +40,11 @@ public class StageManager : MonoBehaviour
     {
         set
         {
-            _startAction += value;
+            _startAction = value;
+        }
+        get
+        {
+            return _startAction;
         }
     }
     private UnityAction _startAction;
@@ -45,7 +53,11 @@ public class StageManager : MonoBehaviour
     {
         set
         {
-            _playingAction += value;
+            _playingAction = value;
+        }
+        get
+        {
+            return _playingAction;
         }
     }
     private UnityAction _playingAction;
@@ -54,7 +66,11 @@ public class StageManager : MonoBehaviour
     {
         set
         {
-            _clearAction += value;
+            _clearAction = value;
+        }
+        get
+        {
+            return _clearAction;
         }
     }
     private UnityAction _clearAction;
@@ -63,7 +79,11 @@ public class StageManager : MonoBehaviour
     {
         set
         {
-            _pauseAction += value;
+            _pauseAction = value;
+        }
+        get
+        {
+            return _pauseAction;
         }
     }
     private UnityAction _pauseAction;
@@ -72,7 +92,11 @@ public class StageManager : MonoBehaviour
     {
         set
         {
-            _resumeAction += value;
+            _resumeAction = value;
+        }
+        get
+        {
+            return _resumeAction;
         }
     }
     private UnityAction _resumeAction;
@@ -81,9 +105,12 @@ public class StageManager : MonoBehaviour
     {
         set
         {
-            _overAction += value;
+            _overAction = value;
         }
-    }
+        get
+        {
+            return _overAction;
+        }    }
     private UnityAction _overAction;
     
     private void Awake()
