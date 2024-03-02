@@ -16,20 +16,7 @@ public class Lives : MonoBehaviour
     {
         _SetLives();
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            _IncreaseLife();
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            _DeleteLife();
-        }
-    }
-
+    
     private void _SetLives()
     {
         for (int i = 0; i < _lifeNum; i++)
@@ -53,7 +40,7 @@ public class Lives : MonoBehaviour
         _lives.Add(life);
     }
     
-    private void _DeleteLife()
+    public void DecreaseLife()
     {
         if (_lives.Count == 0)
         {

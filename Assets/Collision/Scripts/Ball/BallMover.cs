@@ -75,6 +75,11 @@ public class BallMover : MonoBehaviour
                 _SetReflectVector(_hitPos.x - racket.transform.position.x, racket.Height / 2, 0);
                 break;
             
+            case "Bottom":
+                LivesManager.INSTANCE?.DecreaseLife();
+                Destroy(this.gameObject);
+                break;
+            
             default:
                 if (Vector2.Dot(_col.contacts[0].normal.normalized, _moveVelocity) < 0)
                 {
