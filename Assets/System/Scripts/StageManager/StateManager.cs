@@ -62,4 +62,15 @@ public class StateManager : MonoBehaviour
             
         }
     }
+
+    private void _Over()
+    {
+        StageManager.INSTANCE.SetStageState(StageState.Over);
+    }
+
+    public void GameOver()
+    {
+        _Over();
+    }
+    
 }

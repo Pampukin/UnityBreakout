@@ -78,6 +78,15 @@ public class StageManager : MonoBehaviour
     }
     private UnityAction _resumeAction;
     
+    public UnityAction OverAction
+    {
+        set
+        {
+            _overAction += value;
+        }
+    }
+    private UnityAction _overAction;
+    
     private void Awake()
     {
         if (_instance == null)
@@ -109,6 +118,9 @@ public class StageManager : MonoBehaviour
                     break;
                 case StageState.Resume:
                     _Resume();
+                    break;
+                case StageState.Over:
+                    _Over();
                     break;
                 default:
                     Debug.LogError("ステートエラー");
@@ -165,6 +177,14 @@ public class StageManager : MonoBehaviour
         _resumeAction?.Invoke();
         SetStageState(_preState);
         Debug.Log(_stageState);
+        _isStateChanged = false;
+    }
+    
+    private void _Over()
+    {
+        Debug.Log("GameOver");
+        // Time.timeScale = 1;
+        _overAction?.Invoke();
         _isStateChanged = false;
     }
 }
