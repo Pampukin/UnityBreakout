@@ -6,5 +6,5 @@ public enum StageState
     Playing,
     End,
     Pause,
-    Restart,
+    Resume,
 }

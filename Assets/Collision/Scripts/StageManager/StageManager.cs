@@ -69,14 +69,14 @@ public class StageManager : MonoBehaviour
     }
     private UnityAction _pauseAction;
     
-    public UnityAction RestartAction
+    public UnityAction ResumeAction
     {
         set
         {
-            _restartAction += value;
+            _resumeAction += value;
         }
     }
-    private UnityAction _restartAction;
+    private UnityAction _resumeAction;
     
     private void Awake()
     {
@@ -104,7 +104,7 @@ public class StageManager : MonoBehaviour
             }
             else
             {
-                _SetStageState(StageState.Restart);
+                _SetStageState(StageState.Resume);
             }
             
         }
@@ -128,8 +128,8 @@ public class StageManager : MonoBehaviour
                 case StageState.Pause:
                     _Pause();
                     break;
-                case StageState.Restart:
-                    _Restart();
+                case StageState.Resume:
+                    _Resume();
                     break;
                 default:
                     Debug.LogError("ステートエラー");
@@ -179,11 +179,11 @@ public class StageManager : MonoBehaviour
         _isStateChanged = false;
     }
 
-    private void _Restart()
+    private void _Resume()
     {
-        Debug.Log("Restart");
+        Debug.Log("Resume");
         Time.timeScale = 1;
-        _restartAction?.Invoke();
+        _resumeAction?.Invoke();
         _SetStageState(_preState);
         Debug.Log(_stageState);
         _isStateChanged = false;
