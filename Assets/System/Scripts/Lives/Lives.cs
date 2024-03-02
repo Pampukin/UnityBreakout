@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,8 +67,7 @@ public class Lives : MonoBehaviour
         
         if (_isClear())
         {
-            Debug.Log("GameOver");
-            //StateManager.INSTANCE?.GameOver();
+            StateManager.INSTANCE?.GameOver();
         }
     }
 
