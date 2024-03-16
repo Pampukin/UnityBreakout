@@ -5,6 +5,8 @@ public class LivesManager : MonoBehaviour
 {
     [SerializeField]
     private int _lifeNum = 3;
+
+    public bool IsGameOver => _lives.IsGameOver;
     
     private static LivesManager _instance;
 

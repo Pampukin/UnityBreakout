@@ -68,5 +68,15 @@ public class StateManager : MonoBehaviour
     {
         _Over();
     }
+
+    private void _Pre()
+    {
+        StageManager.INSTANCE.SetStageState(StageState.Pre);
+    }
+    
+    public void ReStart()
+    {
+        _Pre();
+    }
     
 }
