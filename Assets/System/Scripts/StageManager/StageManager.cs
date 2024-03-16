@@ -191,7 +191,6 @@ public class StageManager : MonoBehaviour
     private void _Pause()
     {
         Debug.Log("Pause");
-        // Time.timeScale = 0;
         _pauseAction?.Invoke();
         _isStateChanged = false;
     }
@@ -199,17 +198,14 @@ public class StageManager : MonoBehaviour
     private void _Resume()
     {
         Debug.Log("Resume");
-        // Time.timeScale = 1;
         _resumeAction?.Invoke();
         SetStageState(_preState);
-        Debug.Log(_stageState);
         _isStateChanged = false;
     }
     
     private void _Over()
     {
         Debug.Log("GameOver");
-        // Time.timeScale = 1;
         _overAction?.Invoke();
         _isStateChanged = false;
     }
