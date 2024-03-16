@@ -5,7 +5,7 @@ public class StateManager : MonoBehaviour
     public static StateManager INSTANCE => _instance;
     private static StateManager _instance;
 
-    private bool _canPause => StageManager.INSTANCE.StageState != StageState.Clear;
+    private bool _canPause => StageManager.INSTANCE.StageState is not (StageState.Clear or StageState.Over);
     
     private void Awake()
     {
@@ -56,7 +56,6 @@ public class StateManager : MonoBehaviour
             {
                 StageManager.INSTANCE.SetStageState(StageState.Resume);
             }
-            
         }
     }
 
@@ -68,6 +67,16 @@ public class StateManager : MonoBehaviour
     public void GameOver()
     {
         _Over();
+    }
+
+    private void _Pre()
+    {
+        StageManager.INSTANCE.SetStageState(StageState.Pre);
+    }
+    
+    public void ReStart()
+    {
+        _Pre();
     }
     
 }

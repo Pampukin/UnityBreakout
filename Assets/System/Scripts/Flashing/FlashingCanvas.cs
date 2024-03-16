@@ -4,17 +4,9 @@ public abstract class FlashingCanvas : MonoBehaviour
 {
     [SerializeField]
     private FlashingText _flashingText;
-    
-    //開始時の色。
-    [SerializeField]
-    private Color32 _startColor = new Color32(255, 255, 255, 255);
-	
-    //終了(折り返し)時の色。
-    [SerializeField]
-    private Color32 _endColor = new Color32(255, 255, 255, 16);
 
     [SerializeField]
-    private float _duration = 0.75f;
+    private FlashData _flashData;
 
     private float _startTime;
 
@@ -25,7 +17,7 @@ public abstract class FlashingCanvas : MonoBehaviour
 
     private void _flashing()
     {
-        _flashingText.Text.color = Color.Lerp(_startColor,_endColor,Mathf.PingPong((Time.realtimeSinceStartup - _startTime) / _duration, 1.0f));
+        _flashingText.Text.color = Color.Lerp(_flashData.StartColor,_flashData.EndColor,Mathf.PingPong((Time.realtimeSinceStartup - _startTime) / _flashData.Duration, 1.0f));
     }
     
     private void Update()

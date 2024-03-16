@@ -3,8 +3,15 @@ using UnityEngine;
 
 public class Lives : MonoBehaviour
 {
-    [SerializeField]
-    private int _lifeNum = 3;
+    public int LifeNum
+    {
+        set
+        {
+            _lifeNum = value;
+        }
+    }
+    
+    private int _lifeNum;
     
     [SerializeField]
     private Life _life;
@@ -19,7 +26,7 @@ public class Lives : MonoBehaviour
     
     private void _SetLives()
     {
-        for (int i = 0; i < _lifeNum; i++)
+        for (int i = 0; i < _lifeNum + 1; i++)
         {
             var life = Instantiate(_life, this.transform);
             _lives.Add(life);
@@ -52,14 +59,12 @@ public class Lives : MonoBehaviour
         _lives.Remove(life);
         life.Destroy();
         
-        if (_isClear())
+        if (IsGameOver)
         {
             StateManager.INSTANCE?.GameOver();
         }
     }
 
-    private bool _isClear()
-    {
-        return _lives.Count == 0;
-    }
+    public bool IsGameOver => _lives.Count == 0;
+    
 }

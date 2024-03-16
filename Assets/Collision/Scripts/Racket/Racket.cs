@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Racket : MonoBehaviour
 {
     private Vector3 _scale;
-
+    
     public float Height
     {
         get
@@ -26,7 +23,9 @@ public class Racket : MonoBehaviour
     [SerializeField]
     private Ball _ball;
 
-    private Vector3 _offset = new Vector3(0,0.28f,0);
+    private GameObject _ballObject;
+
+    private Vector3 _offset = new Vector3(0,0.3f,0);
 
     private Rigidbody2D _rb;
     
@@ -38,16 +37,18 @@ public class Racket : MonoBehaviour
     
     private void Start()
     {
-        StageManager.INSTANCE.ClearAction = () => _rb.bodyType = RigidbodyType2D.Static;
-        StageManager.INSTANCE.PauseAction = () => _rb.bodyType = RigidbodyType2D.Static;
-        StageManager.INSTANCE.ResumeAction = () => _rb.bodyType = RigidbodyType2D.Dynamic;
+        _SetBallObject();
+        StageManager.INSTANCE.ClearAction += () => _rb.bodyType = RigidbodyType2D.Static;
+        StageManager.INSTANCE.PauseAction += () => _rb.bodyType = RigidbodyType2D.Static;
+        StageManager.INSTANCE.ResumeAction += () => _rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void Update()
     {
         if (StageManager.INSTANCE?.StageState == StageState.Pre)
         {
-            _ball.transform.position = this.transform.position + _offset;
+            _SetBallObject();
+            _ballObject.transform.position = this.transform.position + _offset;
         }
     }
 
@@ -55,5 +56,18 @@ public class Racket : MonoBehaviour
     {
         this.transform.localScale = scale;
         _scale = scale;
+    }
+
+    private void _SetBallObject()
+    {
+        if (_ballObject == null)
+        {
+            var isGameOver = LivesManager.INSTANCE?.IsGameOver ?? false;
+            if (!isGameOver)
+            {
+                _ballObject = Instantiate(_ball).gameObject;
+            }
+            
+        }
     }
 }

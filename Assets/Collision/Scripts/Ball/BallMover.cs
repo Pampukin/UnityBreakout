@@ -44,7 +44,7 @@ public class BallMover : MonoBehaviour
 
     private void Start()
     {
-        StageManager.INSTANCE.StartAction = () => _reflectVector = Vector3.up;
+        StageManager.INSTANCE.StartAction += () => _reflectVector = Vector3.up;
     }
     
     private void FixedUpdate()
@@ -77,6 +77,12 @@ public class BallMover : MonoBehaviour
             
             case "Bottom":
                 LivesManager.INSTANCE?.DecreaseLife();
+                var isGameOver = LivesManager.INSTANCE?.IsGameOver ?? false;
+                if (!isGameOver)
+                {
+                    StateManager.INSTANCE?.ReStart();
+                }
+                
                 Destroy(this.gameObject);
                 break;
             
