@@ -201,13 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flashingText: {fileID: 3574220258828881080}
-  _startColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  _endColor:
-    serializedVersion: 2
-    rgba: 285212671
-  _duration: 0.75
+  _flashData: {fileID: 11400000, guid: a739d1f355258db419c235a58e28619b, type: 2}
 --- !u!223 &7963532628269954543
 Canvas:
   m_ObjectHideFlags: 0
