@@ -16,6 +16,7 @@ public class Block : MonoBehaviour,IHit
     public void Hit()
     {
         _blocks.BrokeBlock(this);
+        ScoreManager.INSTANCE?.AddScore(this);
         this.gameObject.SetActive(false);
     }
 }

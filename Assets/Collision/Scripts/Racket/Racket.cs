@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Racket : MonoBehaviour
 {
     private Vector3 _scale;
-
+    
     public float Height
     {
         get
