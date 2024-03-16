@@ -7,7 +7,7 @@ public class LivesManager : MonoBehaviour
     private int _lifeNum = 3;
 
     public bool IsGameOver => _lives.IsGameOver;
-    
+
     private static LivesManager _instance;
 
     public static LivesManager INSTANCE => _instance;

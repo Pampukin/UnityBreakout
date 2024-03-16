@@ -77,7 +77,8 @@ public class BallMover : MonoBehaviour
             
             case "Bottom":
                 LivesManager.INSTANCE?.DecreaseLife();
-                if (!LivesManager.INSTANCE.IsGameOver)
+                var isGameOver = LivesManager.INSTANCE?.IsGameOver ?? false;
+                if (!isGameOver)
                 {
                     StateManager.INSTANCE?.ReStart();
                 }

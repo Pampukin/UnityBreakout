@@ -25,7 +25,7 @@ public class Racket : MonoBehaviour
 
     private GameObject _ballObject;
 
-    private Vector3 _offset = new Vector3(0,0.28f,0);
+    private Vector3 _offset = new Vector3(0,0.3f,0);
 
     private Rigidbody2D _rb;
     
@@ -60,9 +60,14 @@ public class Racket : MonoBehaviour
 
     private void _SetBallObject()
     {
-        if (_ballObject == null && !LivesManager.INSTANCE.IsGameOver)
+        if (_ballObject == null)
         {
-            _ballObject = Instantiate(_ball).gameObject;
+            var isGameOver = LivesManager.INSTANCE?.IsGameOver ?? false;
+            if (!isGameOver)
+            {
+                _ballObject = Instantiate(_ball).gameObject;
+            }
+            
         }
     }
 }
